@@ -1,6 +1,6 @@
 from pyspark import SparkContext
 from pyspark.streaming import StreamingContext
-sc = SparkContext(appName="PythonStreamingText")
+sc = SparkContext(appName="SparkGPUDataReceivePython")
 ssc = StreamingContext(sc, 1)
 
 # Create a DStream that will connect to hostname:port, like localhost:9999

@@ -43,7 +43,7 @@ def main() :
 
     
     if args.interval==None : 
-        interval = 1
+        interval = 1000
     else :
         interval = args.interval
 
