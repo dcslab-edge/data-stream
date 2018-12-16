@@ -45,9 +45,9 @@ def main() :
           interval = cfg["data_submit_interval"]
         else :
           interval = args.interval
-        print(cfg["host_ip"])
-        print(interval)
-        print(int(cfg["host_port"]))
+        #print(cfg["host_ip"])
+        #print(interval)
+        #print(int(cfg["host_port"]))
         sig:signalManager = signalManager(cfg["host_ip"],int(cfg["host_port"]))
         generator = dataGenerator(cfg)
         sender:Sender =Sender(generator,interval,data_sav,cfg["sparkGPU_target_ip"],int(cfg["sparkGPU_target_port"]))
@@ -58,7 +58,7 @@ def main() :
         except Exception as e:
           print(e)
         finally :
-          print("finnally")
+          #print("finnally")
           conn.close()
           sig._socket.close()
           f.close()

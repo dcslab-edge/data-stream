@@ -14,12 +14,12 @@ class signalManager:
     def wait_for_connection(self):
         self._socket.bind((self._ip,self._port))
         self._socket.listen(5)
-        print("signalManger:listening at port "+str(self._port))
+        #print("signalManger:listening at port "+str(self._port))
 
 
         while True:
             conn,addr = self._socket.accept()
-            print("signalManager:connection accepted")
+         #   print("signalManager:connection accepted")
             return (conn,addr)
 
     def wait_for_start_signal(self,conn,sender,data_len=100):
@@ -35,11 +35,11 @@ class signalManager:
 
     def send_end_signal(self,conn) :
         conn.send("end".encode())
-        print("send end to signaler")
+        #print("send end to signaler")
         conn.close()
-        print("connn closed")
+        #print("connn closed")
         self._socket.close()
-        print("socket closed")
+        #print("socket closed")
 
 
 
