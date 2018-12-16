@@ -32,34 +32,37 @@ def main() :
     parser.add_argument('-t','--target',type=str,help='target server address to send generated data')
     parser.add_argument('-p','--port',type=int,help='target server address to send generated data')
     parser.add_argument('-i','--interval',type=int,help='interval to send data')
-
-    parser.add_argument('-s','--save',action=saveable_dir,help='save data in specified path')
     args = parser.parse_args()
     #save_path =args.save
 
     data_cfg:Path = Path(args.config_dir[0]) / "data.config.json"
     data_sav:Path = Path(args.config_dir[0]) / "data.json"
-    sig:signalManager = signalManager("147.46.242.201",8192)
 
-    
-    if args.interval==None : 
-        interval = 1000
-    else :
-        interval = args.interval
 
     with open(data_cfg) as f:
         cfg = json.load(f)
-    with open(data_sav,'w') as sv:
+        if args.interval==None : 
+          interval = cfg["data_submit_interval"]
+        else :
+          interval = args.interval
+        print(cfg["host_ip"])
+        print(interval)
+        print(int(cfg["host_port"]))
+        sig:signalManager = signalManager(cfg["host_ip"],int(cfg["host_port"]))
         generator = dataGenerator(cfg)
-        sender:Sender =Sender(generator,interval,data_sav,args.target,args.port)
+        sender:Sender =Sender(generator,interval,data_sav,cfg["sparkGPU_target_ip"],int(cfg["sparkGPU_target_port"]))
         conn,addr = sig.wait_for_connection()
         try:
-          sig.wait_for_start_signal(conn,sender)
+          sig.wait_for_start_signal(conn,sender,int(cfg["total_data_submit_count"]))
+          
         except Exception as e:
           print(e)
         finally :
+          print("finnally")
           conn.close()
           sig._socket.close()
+          f.close()
+
 
 
 

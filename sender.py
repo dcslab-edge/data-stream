@@ -52,6 +52,7 @@ class Sender:
             finally:
                 self._socket.close()
                 f.close()
+        print("send terminated")
 
         # def sendData(self,data):
         #     try:
