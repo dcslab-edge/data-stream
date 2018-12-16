@@ -22,20 +22,24 @@ class signalManager:
             print("signalManager:connection accepted")
             return (conn,addr)
 
-    def wait_for_start_signal(self,conn,sender):
+    def wait_for_start_signal(self,conn,sender,data_len=100):
         while True:
             signal=conn.recv(65536).decode()
             if signal=="start" :
                 conn.send("started".encode())
-                sender.sendAndSaveData(100)
-                return
+                sender.sendAndSaveData(data_len)
+                self.send_end_signal(conn)
+                return;
             else :
                 continue
 
     def send_end_signal(self,conn) :
         conn.send("end".encode())
+        print("send end to signaler")
         conn.close()
+        print("connn closed")
         self._socket.close()
+        print("socket closed")
 
 
 
