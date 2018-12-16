@@ -26,6 +26,7 @@ class dataGenerator:
         for d in data_cfg["specific_data_types"] :
             self._data_types.append(dataType(d["type"],d["count"],d["length"]))
             specific_len+=d["count"]
+        self._data_types.append(dataType(major_type,self._data_count-specific_len,major_length))
 
     def add_data_types(self,data_type:dataType):
         self._data_types.append(data_type)
