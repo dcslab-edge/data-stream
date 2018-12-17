@@ -1,0 +1,23 @@
+{
+  "host_ip" : "147.46.242.201",
+  "host_port" : 8192,
+  "sparkGPU_target_ip" : "localhost",
+  "sparkGPU_target_port" : 8888,
+  "total_data_submit_count": 100,
+  "data_submit_interval" : 100,
+  "maximum_data_count":1000,
+  "major_data_type":"int",
+  "major_data_length":1000,
+  "specific_data_types":[
+    {
+      "type":"long",
+      "count":300,
+      "length":1000000
+    },
+    {
+      "type":"string",
+      "count":200,
+      "length":25
+    }
+  ]
+}
