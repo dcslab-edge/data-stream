@@ -65,10 +65,10 @@ ued version:
         ##Commented parts are case for string-return, Basic is json-return
         #data_ret ={}
         data_ret = []
-        print(self._data_types)
-        print(len(self._data_types))
+        #print(self._data_types)
+        #print(len(self._data_types))
         for dt in self._data_types :
-            print(dt._data_type)
+            #print(dt._data_type)
             if dt._data_type == "int" :
                 for i in range(0,dt._data_count) :
                     #data_ret[dt._data_type+str(i)] = random.randrange(1,dt._data_length)

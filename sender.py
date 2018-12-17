@@ -34,16 +34,10 @@ class Sender:
         with open(self._save,"w") as f:
             try:
                 for _ in range(0,line_limit):
-                    print("1 ok")
                     data =self.genData()
-                    print("2 ok")
                     f.write(data+"\n")
-                    print("3 ok")
-                    print(data)
                     conn, addr = self._socket.accept()
-                    print("4 ok")
                     conn.send(data.encode())
-                    print("5 ok")
                     time.sleep(self._interval/1000)
                     conn.close()
             except Exception as e:
@@ -52,7 +46,6 @@ class Sender:
             finally:
                 self._socket.close()
                 f.close()
-        print("send terminated")
 
         # def sendData(self,data):
         #     try:
