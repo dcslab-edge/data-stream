@@ -9,11 +9,11 @@ from pathlib import Path
 
 
 class Sender:
-    def __init__(self,gen:dataGenerator,interval,save:Path,target_ip:str,target_port:int=8000):
+    def __init__(self,data,interval,save:Path,target_ip:str,target_port:int=8000):
         self._ip:str=target_ip
         self._port:int=target_port
         self._socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-        self._generator = gen
+        self._data = data
         self._save = save
         self._interval = interval
 
@@ -34,12 +34,14 @@ class Sender:
         signal.signal(signal.SIGINT, self.signal_handler)
         with open(self._save,"w") as f:
             try:
-                for _ in range(0,line_limit):
-                    data =self.genData()
-                    f.write(data+"\n")
+                for lin in range(0,line_limit):
+                    print("start" + str(lin))
+                    d=self._data[lin]
+                    f.write(d+"\n")
+                    print("gen" + str(lin))
                     conn, addr = self._socket.accept()
-                    print(data)
-                    conn.send(data.encode())
+                    conn.send(d.encode())
+                    print("send"+str(lin))
                     time.sleep(self._interval/1000)
                     conn.close()
             except Exception as e:

@@ -45,12 +45,13 @@ def main() :
           interval = cfg["data_submit_interval"]
         else :
           interval = args.interval
-        #print(cfg["host_ip"])
-        #print(interval)
-        #print(int(cfg["host_port"]))
         sig:signalManager = signalManager(cfg["host_ip"],int(cfg["host_port"]))
         generator = dataGenerator(cfg)
-        sender:Sender =Sender(generator,interval,data_sav,cfg["sparkGPU_target_ip"],int(cfg["sparkGPU_target_port"]))
+        data = list()
+        for _ in range(int(cfg["total_data_submit_count"])):
+          data.append(generator.generateData())
+        print("Data all Generated")
+        sender:Sender =Sender(data,interval,data_sav,cfg["sparkGPU_target_ip"],int(cfg["sparkGPU_target_port"]))
         conn,addr = sig.wait_for_connection()
         print("signal established")
         try:
