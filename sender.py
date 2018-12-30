@@ -30,6 +30,7 @@ class Sender:
     def sendAndSaveData(self,line_limit:int):
         self._socket.bind((self._ip,self._port))
         self._socket.listen(1)
+        print("waiting for SparkGPU STREAM")
         signal.signal(signal.SIGINT, self.signal_handler)
         with open(self._save,"w") as f:
             try:
@@ -37,6 +38,7 @@ class Sender:
                     data =self.genData()
                     f.write(data+"\n")
                     conn, addr = self._socket.accept()
+                    print(data)
                     conn.send(data.encode())
                     time.sleep(self._interval/1000)
                     conn.close()

@@ -12,6 +12,8 @@ if __name__=="__main__" :
     stream_addr="147.46.242.201"
   else:
     stream_addr = sys.argv[1]
+  print("stream addr is")
+  print(stream_addr)
     
   socket = socket.socket()
   socket.connect((stream_addr,8192))
@@ -23,6 +25,7 @@ if __name__=="__main__" :
     if sig=="started" :
       print("it is started, sparkGPU receiving all data")
     break;
+    time.sleep(0.001)
   while 1:
     sig = socket.recv(65536).decode()
     if sig=="end":
@@ -34,6 +37,7 @@ if __name__=="__main__" :
             sleep(1)
             p.terminate()
       break;
+    time.sleep(0.001)
       
 
 	
